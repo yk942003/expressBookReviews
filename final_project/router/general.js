@@ -15,14 +15,15 @@ public_users.post("/register", (req,res) => {
   }
   //Check if user already exists
   const exists = users.some(
-    user => user.name === username
+    user => user.username === username
   );
+  console.log(exists);
   if (exists) {
     return res.status(409).json({message: "User already exists"});
   }
 
   //Register new user to users
-  users.push({ username, password });
+  users.push({ username: username, password: password });
   return res.status(201).json({message: "User registered successfully"});
 });
 
