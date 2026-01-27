@@ -26,12 +26,14 @@ public_users.get('/isbn/:isbn',function (req, res) {
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
   const author = req.params.author;
-  Object.values(books).forEach(book => {
-    if (book.author === author) {
-        res.send(JSON.stringify(book));
-    }
-  });
-  return res.status(404).json({message: "Author not found"});
+  const results = Object.values(books).filter(
+    book => book.author === author
+  );
+
+  if (results.length === 0) {
+    return res.status(404).json({message: "Author not found"});
+  }
+  res.send(JSON.stringify(results));
 });
 
 // Get all books based on title
