@@ -31,7 +31,7 @@ public_users.get('/author/:author',function (req, res) {
         res.send(JSON.stringify(book));
     }
   });
-  res.status(404).json({message: "Author not found"});
+  return res.status(404).json({message: "Author not found"});
 });
 
 // Get all books based on title
