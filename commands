@@ -1,5 +1,6 @@
 [ ! -d 'expressBookReviews' ] && git clone https://github.com/yk942003/expressBookReviews.git
 curl -X GET "http://localhost:5000/"
+curl -X GET "http://localhost:5000/isbn/2"
 
 curl -X POST "http://localhost:5000/register?username=yk&password=123"
 curl -c cookies.txt -X POST "http://localhost:5000/customer/login?username=yk&password=123"

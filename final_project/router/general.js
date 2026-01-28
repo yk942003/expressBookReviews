@@ -37,7 +37,7 @@ public_users.get('/',function (req, res) {
 
     myPromise
         .then((result) => {
-            return res.status(200).json(JSON.stringify(books));
+            return res.status(200).json(JSON.stringify(result));
         })
         .catch((err) => {
             return res.status(500).json({ message: "Error retrieving book list"})
@@ -48,8 +48,23 @@ public_users.get('/',function (req, res) {
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
-  const isbn = req.params.isbn;
-  res.send(JSON.stringify(books[isbn]));
+//   const isbn = req.params.isbn;
+//   res.send(JSON.stringify(books[isbn]));
+
+    let myPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const isbn = req.params.isbn;
+            resolve(books[isbn]);
+        }, 5000);
+    });
+
+    myPromise
+        .then((result) => {
+            res.send(JSON.stringify(result));
+        })
+        .catch((err) => {
+            return res.status(500).json({ message: "Error retrieving book"})
+        })
  });
   
 // Get book details based on author
