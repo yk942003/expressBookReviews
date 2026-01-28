@@ -17,7 +17,6 @@ public_users.post("/register", (req,res) => {
   const exists = users.some(
     user => user.username === username
   );
-  console.log(exists);
   if (exists) {
     return res.status(409).json({message: "User already exists"});
   }
