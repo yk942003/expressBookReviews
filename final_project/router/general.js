@@ -106,15 +106,37 @@ public_users.get('/author/:author',function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  const title = req.params.title;
-  const results = Object.values(books).filter(
-    book => book.title === title
-  );
+//   const title = req.params.title;
+//   const results = Object.values(books).filter(
+//     book => book.title === title
+//   );
 
-  if (results.length === 0) {
-    return res.status(404).json({message: "Title not found"});
-  }
-  res.send(JSON.stringify(results));
+//   if (results.length === 0) {
+//     return res.status(404).json({message: "Title not found"});
+//   }
+//   res.send(JSON.stringify(results));
+
+    let myPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const title = req.params.title;
+            const results = Object.values(books).filter(
+                book => book.title === title
+            );
+            resolve(results);
+        }, 5000);
+    });
+
+    myPromise
+        .then((result) => {
+            if (result.length === 0) {
+                return res.status(404).json({ message: "Title not found" });
+            }
+            return res.status(200).json(JSON.stringify(result));
+        })
+        .catch((err) => {
+            return res.status(404).json({ message: "Error retrieving book from title"})
+        });
+
 });
 
 //  Get book review
